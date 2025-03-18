@@ -15,16 +15,16 @@
     // The keyboard press is handled via the keyboard
     // event handler, which is in key_pressed.
     // Display events are triggered by the keyboard handler and
-    // the timer handler. When the letter 'M' or 'I' is pressed, the
-    // keyboard handler sets gravity to the corresponding gravity constant
-    // and starts a timer event. When the letter 'H' or 'J' is pressed,
-    // the keyboard handler shifts the x value of the spacecraft
-    // and triggers a display event to redraw the scene.
-    // The timer handler calls spacecraft_animation,
-    // which triggers a display event after 50ms to redraw
-    // the scene with the spacecraft in its new position 20 times per second.
-    // The display handler redraws the scene until the program
-    // is closed.
+    // the timer handler. When the letter 'M' or 'I' is pressed,
+    // the keyboard handler sets gravity to the corresponding
+    // gravity constant and starts a timer event. When the
+    // letter 'H' or 'J' is pressed, the keyboard handler shifts
+    // the x value of the spacecraft and triggers a display event
+    // to redraw the scene. The timer handler calls
+    // spacecraft_animation, which triggers a display event
+    // after 50ms to redraw the scene with the spacecraft in
+    // its new position 20 times per second. The display handler
+    // redraws the scene until the program is closed.
 
 float moonGravity = 5.3;
 float ioGravity = 5.9;
