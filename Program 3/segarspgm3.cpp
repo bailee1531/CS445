@@ -31,8 +31,10 @@
 float moonGravity = 5.3;
 float ioGravity = 5.9;
 float gravity = 0.0;
+float time = 0.0;
 float translate_x = 400.0;
-float translate_y = 582.33;
+float translate_y = 0.0;
+int y_axis = 582;
 int fuel = 200;
 char buffer[10];
 
@@ -56,7 +58,7 @@ void write_bitmap_string(void *font, char *string)
 // before calling the function to print the string
  void display_starting_text()
  {
-     glColor3f(1.0, 1.0, 1.0);
+     glColor3f(0.0, 0.0, 0.0);
      glRasterPos3f(300.5, 285.5, -50.0);
      write_bitmap_string(GLUT_BITMAP_TIMES_ROMAN_24, "Press M or I to Start");
  }
@@ -64,7 +66,7 @@ void write_bitmap_string(void *font, char *string)
  void display_fuel_text()
  {
      sprintf(buffer, "Fuel: %d", fuel);
-     glColor3f(1.0, 1.0, 1.0);
+     glColor3f(0.0, 0.0, 0.0);
      glRasterPos3f(700.0, 575.0, -50.0);
      write_bitmap_string(GLUT_BITMAP_TIMES_ROMAN_24, buffer);
  }
@@ -76,11 +78,23 @@ void draw_spacecraft()
 {
     if (gravitySet)
     {
-        glPushMatrix();
-        glTranslatef(translate_x, translate_y, 0.0);
-        glScalef(17.67, 17.67, 17.67);
-        glutWireOctahedron();
-        glPopMatrix();
+        if (y_axis > 25)
+        {
+            y_axis = (int)(translate_y*time - (gravity*time*time) + 582.33);
+            glPushMatrix();
+            glTranslatef(translate_x, y_axis, 0.0);
+            glScalef(17.67, 17.67, 17.67);
+            glutWireOctahedron();
+            glPopMatrix();
+        }
+        else
+        {
+            glPushMatrix();
+            glTranslatef(translate_x, 24.67, 0.0);
+            glScalef(17.67, 17.67, 17.67);
+            glutWireOctahedron();
+            glPopMatrix();
+        }
     }
     else
     {
@@ -96,8 +110,9 @@ void draw_spacecraft()
 
 void spaceship_animation(int id)
 {
+    time += 0.05;
     glutPostRedisplay();
-    glutTimerFunc(gravity, spaceship_animation, 0);
+    glutTimerFunc(50, spaceship_animation, 1);
 }
 
 // Display event handler
@@ -115,10 +130,7 @@ void display_func()
     glClearColor(1.0, 0.87, 0.13, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    translate_y -= gravity;
-
     draw_spacecraft();
-
     display_fuel_text();
 
     // set the pen color to red
@@ -135,17 +147,23 @@ void display_func()
 
     // draw the landing zone
     glBegin(GL_LINE_LOOP);
-        glVertex3f(25.0, 0.0, -50.0);
-        glVertex3f(25.0, 10.0, -50.0);
+        glVertex3f(25.0, 3.5, -50.0);
+        glVertex3f(25.0, 13.5, -50.0);
 
-        glVertex3f(25.0, 10.0, -50.0);
+        glVertex3f(25.0, 13.5, -10.0);
+        glVertex3f(35.0, 13.5, -50.0);
+
+        glVertex3f(35.0, 13.5, -50.0);
         glVertex3f(45.0, 7.0, -50.0);
 
         glVertex3f(45.0, 7.0, -50.0);
-        glVertex3f(65.0, 10.0, -50.0);
+        glVertex3f(55.0, 13.5, -50.0);
 
-        glVertex3f(65.0, 10.0, -50.0);
-        glVertex3f(65.0, 0.0, -50.0);
+        glVertex3f(55.0, 13.5, -50.0);
+        glVertex3f(65.0, 13.5, -50.0);
+
+        glVertex3f(65.0, 13.5, -50.0);
+        glVertex3f(65.0, 3.5, -50.0);
     glEnd();
 
     glFlush();
@@ -184,13 +202,13 @@ void key_pressed(unsigned char key, int x, int y)
         {
             gravity = ioGravity;
             gravitySet = true;
-            glutTimerFunc(20, spaceship_animation, 1);
+            glutTimerFunc(50, spaceship_animation, 0);
         }
         else if ((key == 77) || (key == 109))
         {
             gravity = moonGravity;
             gravitySet = true;
-            glutTimerFunc(20, spaceship_animation, 1);
+            glutTimerFunc(50, spaceship_animation, 0);
         }
     }
 }
