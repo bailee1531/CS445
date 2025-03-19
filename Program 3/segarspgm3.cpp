@@ -139,7 +139,7 @@ void draw_spacecraft()
 // to show the spacecraft's updated placement
 // There are 1000 ms in a second, so
 // glutTimerFunc needs to be called after
-// 50 ms to update every 20 seconds
+// 50 ms to be called 20 times per second
 // velTime is incremented by 0.05 so the
 // spacecraft's falling rate is updated 20
 // times per second
@@ -150,7 +150,7 @@ void draw_spacecraft()
 void spacecraft_animation(int id)
 {
     velTime += 0.05;
-    y_axis = (int)((0.0*velTime) + y_axis - (gravity*velTime*velTime));   // gravity effect formula
+    y_axis = (int)((0.0*velTime) + 582.33 - (gravity*velTime*velTime));   // gravity effect formula
     glutPostRedisplay();
     glutTimerFunc(50, spacecraft_animation, 1);
 }
