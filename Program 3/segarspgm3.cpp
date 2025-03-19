@@ -80,7 +80,7 @@ void write_bitmap_string(void *font, char *string)
 // Uses sprintf to display the numeric fuel value as a string
  void display_fuel_text()
  {
-     sprintf(buffer, "Fuel: %d", fuel);
+     sprintf(buffer, "Fuel %d", fuel);
      glColor3f(0.0, 0.0, 0.0);
      glRasterPos3f(700.0, 575.0, -50.0);
      write_bitmap_string(GLUT_BITMAP_TIMES_ROMAN_24, buffer);
