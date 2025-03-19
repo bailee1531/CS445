@@ -26,18 +26,20 @@
     // its new position 20 times per second. The display handler
     // redraws the scene until the program is closed.
 
-float moonGravity = 5.3;
-float ioGravity = 5.9;
-float gravity = 0.0;
-float velTime = 0.0;
-float translate_x = 400.0;
-float translate_y = 0.0;
-int y_axis = 582;
-int fuel = 200;
-char buffer[10];
-
-// flag to determine if the gravity has been set yet
-bool gravitySet = false;
+float moonGravity = 5.3;    // gravity constant for the moon
+float ioGravity = 5.9;      // gravity constant for IO
+float gravity = 0.0;        // gravity to be set depending on which key is pressed
+float velTime = 0.0;        // time the spacecraft is moving. Does not update until
+                            // the gravity constant has been set
+float translate_x = 400.0;  // starting x_axis. Updating the value is done in the
+                            // keyboard handler
+int y_axis = 582;           // starting y_axis. Updating the value is done in the
+                            // timer handler and the keyboard handler
+int fuel = 200;             // starting fuel level. Updating the value is done in
+                            // the keyboard handler
+char buffer[10];            // buffer used in sprintf to display the fuel value
+                            // as a string
+bool gravitySet = false;    // flag to determine if the gravity has been set yeth
 
 // Prints a string character by character
 // to the screen using a bitmap
@@ -93,7 +95,6 @@ void draw_spacecraft()
         // if y_axis is above 25, then the tip is above the red line
         if (y_axis > 25)
         {
-            y_axis = (int)(translate_y*velTime - (gravity*velTime*velTime) + 582.33);   // gravity formula
             glPushMatrix();
             glTranslatef(translate_x, y_axis, 0.0);
             glScalef(17.67, 17.67, 17.67);
@@ -142,10 +143,14 @@ void draw_spacecraft()
 // velTime is incremented by 0.05 so the
 // spacecraft's falling rate is updated 20
 // times per second
+// The spacecraft's y axis is updated with the gravity formula given
+// in class. This formula does not allow the displacement
+// caused by the 'U' key to affect the velocity factor
 // int id: id to be used for the timer handler
 void spacecraft_animation(int id)
 {
     velTime += 0.05;
+    y_axis = (int)((0.0*velTime) + y_axis - (gravity*velTime*velTime));   // gravity effect formula
     glutPostRedisplay();
     glutTimerFunc(50, spacecraft_animation, 1);
 }
@@ -219,23 +224,21 @@ void display_func()
 // int y: y value of the mouse
 void key_pressed(unsigned char key, int x, int y)
 {
-    // boolean flag that is set to true once 'I' or 'M' have been pressed
-    if (gravitySet)
+    // checks boolean flag that is set to true once 'I' or 'M' have been pressed
+    // does not allow users to move the spacecraft once it has reached the red line
+    if (gravitySet && y_axis > 25)
     {
         if ((key == 71) || (key == 104))    // 'J' or 'j'
         {
             translate_x -= 4.0; // move left
-            translate_y -= 0.0;
         }
         else if ((key == 74) || (key == 106))   // 'H' or 'h'
         {
             translate_x += 4.0; // move right
-            translate_y -= 0.0;
         }
         else if (((key == 85) || (key == 117)) && (fuel > 0)) // 'U' or 'u'
         {
-            translate_x -= 0.0;
-            translate_y += 5.0; // move up
+            y_axis += 5; // move up
             fuel -= 5;  // decrease the fuel level by 5
         }
         glutPostRedisplay();    // redraw the scene
