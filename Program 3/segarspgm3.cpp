@@ -150,7 +150,7 @@ void draw_spacecraft()
 void spacecraft_animation(int id)
 {
     velTime += 0.05;
-    y_axis = (int)((0.0*velTime) + 582.33 - (gravity*velTime*velTime));   // gravity effect formula
+    y_axis = (int)((0.0*velTime) + 582.33 - ((gravity/2.0)*velTime*velTime));   // gravity effect formula
     glutPostRedisplay();
     glutTimerFunc(50, spacecraft_animation, 1);
 }
