@@ -6,8 +6,8 @@
 // Author: Bailee Segars
 // CS 445-01 SP25
 // Architecture:
-    // GLUT event-driven generation of a fish tank scene.
-    // The canvas is named Fish Tank Simulation and is produced
+    // GLUT event-driven generation of a UAH emblem scene.
+    // The canvas is named Spinning UAH Emblem and is produced
     // via the display event handler, which is in display_func.
     // display_func calls a function to draw the big fish, a
     // function to draw the little fish, and a function
@@ -26,62 +26,72 @@
     // triggered. Once this value evaluates to false, the
     // timer handler no longer triggers display events.
 
-static unsigned int letters;
+static unsigned int lettersUH;
+static unsigned int letterA;
+static unsigned int innerSphere;
 int theta = 0;
+
+GLfloat uah_blue[] = {0.0, 0.46, 0.78};
+GLfloat medium_gray[] = {0.5, 0.5, 0.5};
+GLfloat dull_gray[] = {0.66, 0.66, 0.66};
+GLfloat apple_red[] = {1.0, 0.03, 0.0};
+GLfloat ambient_light[] = {0.25, 0.25, 0.25};
+GLfloat diffuse_light[] = {0.5, 0.5, 0.5};
+GLfloat specular_light[] = {0.75, 0.75, 0.75};
+GLfloat position_light[] = {0.0, 0.0, 1.0, 0.0};
+GLfloat specular_material[] = {0.7, 0.7, 0.7};
+GLfloat shininess_material[] = {30.0};
 
 void letters_list()
 {
-    letters = glGenLists(1);
-
-    glNewList(letters, GL_COMPILE);
-        glColor3f(0.0, 0.46, 0.78); // set the pen color to UAH blue
-
+    lettersUH = glGenLists(1);
+    glNewList(lettersUH, GL_COMPILE);
         // Letter U
         // bottom row
         glPushMatrix();
-            glTranslatef(-340.0, -175.0, -375.0);
+            glTranslatef(-340.0, -175.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(-290.0, -175.0, -375.0);
+            glTranslatef(-290.0, -175.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(-240.0, -175.0, -375.0);
+            glTranslatef(-240.0, -175.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(-190.0, -175.0, -375.0);
+            glTranslatef(-190.0, -175.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
 
         // second row
         glPushMatrix();
-            glTranslatef(-340.0, -125.0, -375.0);
+            glTranslatef(-340.0, -125.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(-190.0, -125.0, -375.0);
+            glTranslatef(-190.0, -125.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
 
         // third row
         glPushMatrix();
-            glTranslatef(-340.0, -75.0, -375.0);
+            glTranslatef(-340.0, -75.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(-190.0, -75.0, -375.0);
+            glTranslatef(-190.0, -75.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
 
         // top row
         glPushMatrix();
-            glTranslatef(-340.0, -25.0, -375.0);
+            glTranslatef(-340.0, -25.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(-190.0, -25.0, -375.0);
+            glTranslatef(-190.0, -25.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
 
@@ -89,110 +99,112 @@ void letters_list()
         // Letter H
         // bottom row
         glPushMatrix();
-            glTranslatef(210.0, -175.0, -375.0);
+            glTranslatef(210.0, -175.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(360.0, -175.0, -375.0);
+            glTranslatef(360.0, -175.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
 
         // second row
         glPushMatrix();
-            glTranslatef(210.0, -125.0, -375.0);
+            glTranslatef(210.0, -125.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(260.0, -125.0, -375.0);
+            glTranslatef(260.0, -125.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(310.0, -125.0, -375.0);
+            glTranslatef(310.0, -125.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(360.0, -125.0, -375.0);
+            glTranslatef(360.0, -125.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
 
         // third row
         glPushMatrix();
-            glTranslatef(360.0, -75.0, -375.0);
+            glTranslatef(360.0, -75.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(210.0, -75.0, -375.0);
+            glTranslatef(210.0, -75.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
 
         // top row
         glPushMatrix();
-            glTranslatef(210.0, -25.0, -375.0);
+            glTranslatef(210.0, -25.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(360.0, -25.0, -375.0);
+            glTranslatef(360.0, -25.0, -400.0);
             glutSolidCube(50.0);
         glPopMatrix();
+    glEndList();
 
-
+    letterA = glGenLists(1);
+    glNewList(letterA, GL_COMPILE);
         // Letter A
-        glColor3f(0.5, 0.5, 0.5);   // set the pen color to medium gray
-
         // bottom row
         glPushMatrix();
-            glTranslatef(-90.0, -175.0, -375.0);
+            glTranslatef(-90.0, -175.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(110.0, -175.0, -375.0);
+            glTranslatef(110.0, -175.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
 
         // second row
         glPushMatrix();
-            glTranslatef(-65.0, -125.0, -375.0);
+            glTranslatef(-65.0, -125.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(-15.0, -125.0, -375.0);
+            glTranslatef(-15.0, -125.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(35.0, -125.0, -375.0);
+            glTranslatef(35.0, -125.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(85.0, -125.0, -375.0);
+            glTranslatef(85.0, -125.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
 
         // third row
         glPushMatrix();
-            glTranslatef(-40.0, -75.0, -375.0);
+            glTranslatef(-40.0, -75.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(60.0, -75.0, -375.0);
+            glTranslatef(60.0, -75.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
 
         // top row
         glPushMatrix();
-            glTranslatef(-15.0, -25.0, -375.0);
+            glTranslatef(-15.0, -25.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(35.0, -25.0, -375.0);
+            glTranslatef(35.0, -25.0, -400.0);
             glutWireCube(50.0);
         glPopMatrix();
+    glEndList();
 
-
+    innerSphere = glGenLists(1);
+    glNewList(innerSphere, GL_COMPILE);
         // Sphere in the A
-        glColor3f(1.0, 0.03, 0.0);  // set the pen color to Candy Apple Red
         glPushMatrix();
-            glTranslatef(10.0, -75.0, -375.0);
+            glTranslatef(10.0, -75.0, -400.0);
             glutSolidSphere(25.0, 20, 20);
+        glPopMatrix();
     glEndList();
 }
 
@@ -207,8 +219,10 @@ void letters_list()
 // int id: id to be used for the timer handler
 void letter_animation(int id)
 {
+    theta = theta % 360;
+    theta += 4;
     glutPostRedisplay();
-    glutTimerFunc(50, letter_animation, 1);
+    glutTimerFunc(100, letter_animation, 1);
 }
 
 // Display event handler
@@ -221,19 +235,29 @@ void display_func()
     glClearColor(0.0, 0.0, 0.0, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // glPushMatrix();
-    //     glTranslatef(10.0, 0.0, -400.0);
-    //     glRotatef(theta, 0.0, 1.0, 0.0);
-    //     glTranslatef(-10.0, 0.0, -400.0);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, dull_gray);
+    glBegin(GL_TRIANGLES);
+        glVertex3f(10.0, 0.0, -400.0);
+        glVertex3f(35.0, 75.0, -400.0);
+        glVertex3f(-15.0, 75.0, -400.0);
+    glEnd();
 
-    //     glCallList(letters);
-    // glPopMatrix();
+    glPushMatrix();
+        glTranslatef(10.0, 0.0, -400.0);
+        glRotatef(theta, 0.0, 1.0, 0.0);
+        glTranslatef(-10.0, 0.0, 400.0);
 
-    // glutTimerFunc(50, letter_animation, 0);
-    // theta += 4;
-    glCallList(letters);
+        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, uah_blue);
+        glCallList(lettersUH);
 
-    glutSwapBuffers();  // swaps the buffers to show the fish's updated position
+        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, medium_gray);
+        glCallList(letterA);
+
+        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, apple_red);
+        glCallList(innerSphere);
+    glPopMatrix();
+
+    glutSwapBuffers();  // swaps the buffers to show the updated position
 }
 
 
@@ -246,9 +270,23 @@ int main(int argc, char ** argv)
     glutInit(&argc, argv);
     my_setup(canvas_Width, canvas_Height, canvas_Name);
 
-    glutDisplayFunc(display_func);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specular_light);
+    glLightfv(GL_LIGHT0, GL_POSITION, position_light);
 
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, specular_material);
+    glMaterialfv(GL_FRONT, GL_SHININESS, shininess_material);
+    glShadeModel(GL_SMOOTH);
+    glCullFace(GL_BACK);
+
+    glutDisplayFunc(display_func);
     letters_list();
+    glutTimerFunc(100, letter_animation, 0);
 
     glutMainLoop();
     return 0;
