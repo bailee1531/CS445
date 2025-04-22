@@ -27,168 +27,172 @@
     // timer handler no longer triggers display events.
 
 static unsigned int letters;
+int theta = 0;
 
-void letters_list(float translate_x, float translate_y)
+void letters_list()
 {
     letters = glGenLists(1);
 
     glNewList(letters, GL_COMPILE);
         glColor3f(0.0, 0.46, 0.78); // set the pen color to UAH blue
+
         // Letter U
+        // bottom row
         glPushMatrix();
-            glTranslatef(translate_x, translate_y+150.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(-340.0, -175.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x, translate_y+100.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(-290.0, -175.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(-240.0, -175.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x, translate_y, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+50.0, translate_y, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+100.0, translate_y, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+150.0, translate_y, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+150.0, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+150.0, translate_y+100.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+150.0, translate_y+150.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(-190.0, -175.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
 
-        // Letter A
+        // second row
         glPushMatrix();
-            glTranslatef(translate_x+250.0, translate_y, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
+            glTranslatef(-340.0, -125.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+275.0, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
+            glTranslatef(-190.0, -125.0, -375.0);
+            glutSolidCube(50.0);
+        glPopMatrix();
+
+        // third row
+        glPushMatrix();
+            glTranslatef(-340.0, -75.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+325.0, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
+            glTranslatef(-190.0, -75.0, -375.0);
+            glutSolidCube(50.0);
+        glPopMatrix();
+
+        // top row
+        glPushMatrix();
+            glTranslatef(-340.0, -25.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+375.0, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
+            glTranslatef(-190.0, -25.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+425.0, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+300.0, translate_y+100.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+325.0, translate_y+150.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+375.0, translate_y+150.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+400.0, translate_y+100.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(translate_x+450.0, translate_y, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutWireCube(1.0);
-        glPopMatrix();
+
 
         // Letter H
+        // bottom row
         glPushMatrix();
-            glTranslatef(translate_x+550.0, translate_y, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(210.0, -175.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+550.0, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(360.0, -175.0, -375.0);
+            glutSolidCube(50.0);
+        glPopMatrix();
+
+        // second row
+        glPushMatrix();
+            glTranslatef(210.0, -125.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+550.0, translate_y+100.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(260.0, -125.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+550.0, translate_y+150.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(310.0, -125.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+600.0, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(360.0, -125.0, -375.0);
+            glutSolidCube(50.0);
+        glPopMatrix();
+
+        // third row
+        glPushMatrix();
+            glTranslatef(360.0, -75.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+650.0, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(210.0, -75.0, -375.0);
+            glutSolidCube(50.0);
+        glPopMatrix();
+
+        // top row
+        glPushMatrix();
+            glTranslatef(210.0, -25.0, -375.0);
+            glutSolidCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+700.0, translate_y, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(360.0, -25.0, -375.0);
+            glutSolidCube(50.0);
+        glPopMatrix();
+
+
+        // Letter A
+        glColor3f(0.5, 0.5, 0.5);   // set the pen color to medium gray
+
+        // bottom row
+        glPushMatrix();
+            glTranslatef(-90.0, -175.0, -375.0);
+            glutWireCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+700.0, translate_y+50.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(110.0, -175.0, -375.0);
+            glutWireCube(50.0);
+        glPopMatrix();
+
+        // second row
+        glPushMatrix();
+            glTranslatef(-65.0, -125.0, -375.0);
+            glutWireCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+700.0, translate_y+100.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(-15.0, -125.0, -375.0);
+            glutWireCube(50.0);
         glPopMatrix();
         glPushMatrix();
-            glTranslatef(translate_x+700.0, translate_y+150.0, -375.0);
-            glScalef(50.0, 50.0, 1.0);
-            glutSolidCube(1.0);
+            glTranslatef(35.0, -125.0, -375.0);
+            glutWireCube(50.0);
         glPopMatrix();
+        glPushMatrix();
+            glTranslatef(85.0, -125.0, -375.0);
+            glutWireCube(50.0);
+        glPopMatrix();
+
+        // third row
+        glPushMatrix();
+            glTranslatef(-40.0, -75.0, -375.0);
+            glutWireCube(50.0);
+        glPopMatrix();
+        glPushMatrix();
+            glTranslatef(60.0, -75.0, -375.0);
+            glutWireCube(50.0);
+        glPopMatrix();
+
+        // top row
+        glPushMatrix();
+            glTranslatef(-15.0, -25.0, -375.0);
+            glutWireCube(50.0);
+        glPopMatrix();
+        glPushMatrix();
+            glTranslatef(35.0, -25.0, -375.0);
+            glutWireCube(50.0);
+        glPopMatrix();
+
+
+        // Sphere in the A
+        glColor3f(1.0, 0.03, 0.0);  // set the pen color to Candy Apple Red
+        glPushMatrix();
+            glTranslatef(10.0, -75.0, -375.0);
+            glutSolidSphere(25.0, 20, 20);
     glEndList();
 }
 
@@ -201,14 +205,11 @@ void letters_list(float translate_x, float translate_y)
 // glutTimerFunc needs to be called after
 // 50 ms to be called 20 times per second
 // int id: id to be used for the timer handler
-// void big_fish_animation(int id)
-// {
-//     if (swimming)
-//     {
-//         glutPostRedisplay();
-//         glutTimerFunc(50, big_fish_animation, 1);
-//     }
-// }
+void letter_animation(int id)
+{
+    glutPostRedisplay();
+    glutTimerFunc(50, letter_animation, 1);
+}
 
 // Display event handler
 // Redraws the screen every time glutPostRedisplay() is called
@@ -218,9 +219,20 @@ void display_func()
 {
     // set the background color to black
     glClearColor(0.0, 0.0, 0.0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // glPushMatrix();
+    //     glTranslatef(10.0, 0.0, -400.0);
+    //     glRotatef(theta, 0.0, 1.0, 0.0);
+    //     glTranslatef(-10.0, 0.0, -400.0);
+
+    //     glCallList(letters);
+    // glPopMatrix();
+
+    // glutTimerFunc(50, letter_animation, 0);
+    // theta += 4;
     glCallList(letters);
-    glFlush();
+
     glutSwapBuffers();  // swaps the buffers to show the fish's updated position
 }
 
@@ -236,7 +248,7 @@ int main(int argc, char ** argv)
 
     glutDisplayFunc(display_func);
 
-    letters_list(-350.0, -200.0);
+    letters_list();
 
     glutMainLoop();
     return 0;

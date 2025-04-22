@@ -16,10 +16,12 @@ TSN 2025 version - for OpenGL 4.3 w/legacy compatibility
 
 void my_3d_projection(int width, int height)
 {
+    GLdouble width_bound, height_bound;
+    width_bound =   (GLdouble) width; height_bound =   (GLdouble) height;
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(90.0, 1.0, 10.0, 1010.0);
+    gluPerspective(90.0, width_bound/height_bound, 10.0, 1010.0);
     glMatrixMode(GL_MODELVIEW);
 }
 
